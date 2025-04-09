@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserRole
+class AdminRole
 {
     /**
      * Handle an incoming request.
@@ -17,14 +17,20 @@ class UserRole
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            if (Auth::user()->role == 'user') {
+
+            if (Auth::user()->role == 'admin') {
                 return $next($request);
-            } else {
-                Auth::logout();
-                return response()->json(['message' => 'Access denied. Not a User'], Response::HTTP_FORBIDDEN);
             }
+            Auth::logout();
+            return response()->json(['message' => 'Access denied. Not an admin'], Response::HTTP_FORBIDDEN);
         }
         Auth::logout();
-        return response()->json(['message' => 'Access denied.Not Authenticated'], Response::HTTP_FORBIDDEN);
+        return response()->json(['message' => 'Unauthorized user'], Response::HTTP_UNAUTHORIZED);
+
+
+
+
     }
+
+
 }

@@ -34,8 +34,9 @@ class TodoRepository implements TodoInterface
     public function store(array $data)
     {
         try {
-            $created = $this->todomodel->create($data);
-            return response()->json(['success' => true, 'data' => $created, 'message' => 'Task created successfully']);
+            $created= $this->todomodel->create($data);
+       return response()->json(['success' => true, 'data' => $created, 'message' => 'Task created successfully']);
+    
         } catch (Exception $e) {
             Log::error("Error creating todo: " . $e->getMessage());
             return response()->json(['error' => 'Failed to create todo'], 500);

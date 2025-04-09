@@ -23,12 +23,13 @@ class TodoController extends Controller
 
     }
 
-   
+  
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        $request['user_id'] = Auth::id();
         return $this->todoServices->addTodo($request->all());
     }
 

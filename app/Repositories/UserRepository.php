@@ -20,6 +20,7 @@ class UserRepository implements UserInterface
     if (!$user || !Hash::check($data['password'], $user->password)) {
         return ['result' => "user not found", "success" => false];
     }
+    
     $success['token'] = $user->createToken('myapp')->plainTextToken;
     $user['name'] = $user->name;
     return ['success' => true, 'result' => $success, "message" => "User Logged in Successfully"];
